@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+{% load static %}
+<div style="margin-top: 20px; margin-left: 20px;">
+    <h1>Your ads:</h1>
+    {% if ads %}
+    {% for ad in ads %}
+    <div class="col-md-4 d-flex align-items-stretch">
+          <div class="card mb-4 shadow-sm">
+            {% if ad.photo %}
+              <img src="{{ ad.photo.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
+            <div class="card-body">
+            </div>
+          </div>
+    </div>
+    <div class="row">
+    <div style="border: 1px solid grey; padding: 10px; margin-bottom: 20px;">
+        <p><a href="{% url 'ad' ad.id %}">{{ ad }}</a> (created at {{ ad.created_at }})</p>
+    </div>
+    {% endfor %}
+</div>
+ <div class="pagination">
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">back</a>
+        {% endif %}
+
+        <span class="current">
+            {{ page_obj.number }} iš {{ page_obj.paginator.num_pages }}
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+     </div>
+     {% else %}
+        <p>No ads posted.</p>
+     {% endif %}
+</div>
+{% endblock %}

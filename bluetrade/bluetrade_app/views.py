@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Ad
 from django.views import generic
 from django.db.models import Q
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 class AdListView(generic.ListView):
     model = Ad
     paginate_by = 5
@@ -23,4 +23,12 @@ def search(request):
         "query": query,
     }
     return render(request, "search.html", context=context)
-# Create your views here.
+
+class CreatorAdListView(generic.ListView, LoginRequiredMixin):
+    model = Ad
+    paginate_by = 5
+    template_name = "creator_ads.html"
+    context_object_name = "ads"
+
+    def get_queryset(self):
+        return Ad.objects.filter(creator=self.request.user)

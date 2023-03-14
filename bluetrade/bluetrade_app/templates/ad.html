@@ -18,7 +18,7 @@
             {% endif %}
 <h2>Description:</h2>
 <div style="border: 1px solid grey; padding: 10px; margin-bottom: 20px;">
-        <p>{{ ad.description }}</p>
+        <p>{{ ad.description | safe}}</p>
     </div>
 </div>
 {% endblock %}

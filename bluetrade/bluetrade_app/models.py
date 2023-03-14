@@ -4,7 +4,7 @@ from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from datetime import datetime
 from django.contrib.auth.models import User
-
+from tinymce.models import HTMLField
 # Create your models here.
 
 class City(models.Model):
@@ -19,13 +19,14 @@ class City(models.Model):
 
 class Ad(models.Model):
     title = models.CharField(verbose_name="Ad title", max_length=200)
-    description = models.TextField(verbose_name="Ad_description", max_length=1000)
+    # description = models.TextField(verbose_name="Ad_description", max_length=1000)
     city = models.ManyToManyField(to="City", blank=True)
     uuid = models.UUIDField(verbose_name="UUID", default=uuid.uuid4, help_text="Unique ad id")
     due_ad_end = models.DateField(verbose_name="Expires at")
     created_at = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ads')
-    photo = models.ImageField(verbose_name="Photo", upload_to="photos", null=True)
+    photo = models.ImageField(verbose_name="Photo", upload_to="photos", null=True, blank=True)
+    description = HTMLField(verbose_name="Ad_description", blank=True, null=True)
     def display_city(self):
         return ', '.join(city.name for city in self.city.all()[:3])
 
