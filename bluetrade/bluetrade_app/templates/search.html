@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Search rezults{% endblock %}
+
+{% block content %}
+<h1>Search rezults of {{ query }} </h1>
+<br/>
+{% if ads %}
+<ul>
+    {% for ad in ads %}
+    <li>{{ ad }}</li>
+    {% endfor %}
+</ul>
+{% else %}
+    <p>No rezults</p>
+{% endif %}
+{% endblock %}

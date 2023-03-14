@@ -3,12 +3,19 @@
 {% block title %}HOME{% endblock %}
 
 {% block content %}
+{% load static %}
 <div style="margin-top: 20px; margin-left: 20px;">
 <h1>{{ ad.title }}</h1>
-<p>Placed by: {{ ad.creator }}</p>
-<p>Placed at: {{ ad.created_at }}</p>
-<p>Ad expires: {{ ad.due_ad_end }}</p>
-<p>City: {{ad.display_city}}</p>
+<p><strong>Placed by:</strong> {{ ad.creator }}</p>
+<p><strong>Placed at:</strong> {{ ad.created_at }}</p>
+<p><strong>Ad expires:</strong> {{ ad.due_ad_end }}</p>
+<p><strong>City:</strong> {{ad.display_city}}</p>
+<p><strong>Category:</strong> {{ad.display_category}}</p>
+    {% if ad.photo %}
+              <img src="{{ ad.photo.url }}" class="card-img-top" alt="...">
+            {% else %}
+              <img src="{% static 'img/no-image.png' %}" class="card-img-top">
+            {% endif %}
 <h2>Description:</h2>
 <div style="border: 1px solid grey; padding: 10px; margin-bottom: 20px;">
         <p>{{ ad.description }}</p>

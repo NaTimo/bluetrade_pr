@@ -25,7 +25,7 @@ class Ad(models.Model):
     due_ad_end = models.DateField(verbose_name="Expires at")
     created_at = models.DateTimeField(auto_now_add=True)
     creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ads')
-
+    photo = models.ImageField(verbose_name="Photo", upload_to="photos", null=True)
     def display_city(self):
         return ', '.join(city.name for city in self.city.all()[:3])
 
@@ -41,8 +41,9 @@ class Ad(models.Model):
         ('m', 'Media'),
         ('e', 'Entertainment'),
         ('l', 'Clothing'),
-        ('c', 'Children'),
+        ('h', 'Children'),
     )
+
 
     category = models.CharField(
         max_length=1,
@@ -51,6 +52,9 @@ class Ad(models.Model):
         default='a',
         help_text='Category (for example Computers)',
     )
+
+    def display_category(self):
+        return dict(self.CATEGORY)[self.category]
 
     def __str__(self):
         return f"{self.title}"
