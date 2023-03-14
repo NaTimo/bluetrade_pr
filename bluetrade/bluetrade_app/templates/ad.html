@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}HOME{% endblock %}
+
+{% block content %}
+<div style="margin-top: 20px; margin-left: 20px;">
+<h1>{{ ad.title }}</h1>
+<p>Placed by: {{ ad.creator }}</p>
+<p>Placed at: {{ ad.created_at }}</p>
+<p>Ad expires: {{ ad.due_ad_end }}</p>
+<p>City: {{ad.display_city}}</p>
+<h2>Description:</h2>
+<div style="border: 1px solid grey; padding: 10px; margin-bottom: 20px;">
+        <p>{{ ad.description }}</p>
+    </div>
+</div>
+{% endblock %}

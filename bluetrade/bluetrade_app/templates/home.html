@@ -6,7 +6,7 @@
 <div style="margin-top: 20px; margin-left: 20px;">
     {% for ad in ads %}
     <div style="border: 1px solid grey; padding: 10px; margin-bottom: 20px;">
-        <p>{{ ad }}</p>
+        <p><a href="{% url 'ad' ad.id %}">{{ ad }}</a> (created at {{ ad.created_at }})</p>
     </div>
     {% endfor %}
 </div>

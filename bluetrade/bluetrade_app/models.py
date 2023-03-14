@@ -3,6 +3,7 @@ import uuid
 from django.db.models.signals import pre_delete
 from django.dispatch.dispatcher import receiver
 from datetime import datetime
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -23,6 +24,7 @@ class Ad(models.Model):
     uuid = models.UUIDField(verbose_name="UUID", default=uuid.uuid4, help_text="Unique ad id")
     due_ad_end = models.DateField(verbose_name="Expires at")
     created_at = models.DateTimeField(auto_now_add=True)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='ads')
 
     def display_city(self):
         return ', '.join(city.name for city in self.city.all()[:3])
